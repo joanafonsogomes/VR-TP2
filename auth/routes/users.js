@@ -7,19 +7,19 @@ const User = require('../controllers/user');
 
 
 router.get('/', function(req, res) {
-  res.render('login', { title: 'VR' });
+  res.render('login', { title: 'VR-TP2' });
 });
 
 router.get('/registar', function(req, res) {
-  res.render('registar', { title: 'VR' });
+  res.render('registar', { title: 'VR-TP2' });
 });
 
 router.get('/profile/', function(req, res) {
-  res.render('profile', { title: 'VR'});
+  res.render('profile', { title: 'VR-TP2'});
 });
 
 router.get('/auth', function(req, res) {
-  res.render('auth', { title: 'VR' });
+  res.render('auth', { title: 'VR-TP2' });
 });
 
 /* Autenticação utilizador e geração de token para a sessão */

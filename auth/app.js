@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 var logger = require('morgan');
 var mongoose = require('mongoose')
 
-// ----------------------------------------------------------------------------
+// MONGO CONNECTION
 
 //Import the mongoose module
 var mongoose = require('mongoose');
@@ -24,10 +24,11 @@ db.once('open', function() {
     console.log("MongoDB successful connection")
 });
 
-// ----------------------------------------------------------------------------
-
+// ROUTES
 
 var userRouter = require('./routes/users');
+
+// MIDDLEWARE
 
 var app = express();
 
@@ -58,8 +59,11 @@ app.use(function(req, res, next){
   else next()
 });
 
+// ROUTES
 
 app.use('/', userRouter);
+
+// ERROR HANDLE
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
