@@ -1,29 +1,32 @@
 version: '3'
 
 services:
+    auth:
+        build: ./auth
+        container_name: auth
+        restart: always
+        ports:
+            - '4000:4000'
+        networks:
+            - network1
+
     db:
         container_name: mongodb
-        image: mongo:3.6 
-        restart: always
+        image: mongo:3.6
+        ports:
+            - '27017:27017'
         environment:
             MONGO_INITDB_ROOT_USERNAME: root
             MONGO_INITDB_ROOT_PASSWORD: root
         volumes:
-            - mongo:/data/db
+            - ./data:/data/db
+            - ./mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh:ro
         networks:
-            - dbnet
-    
-    auth:
-        build: ./auth
-        container_name: auth
-        ports:
-            - '8888:8888'
-        networks:
-            - dbnet
+            - network1
+
+networks:
+    network1:
 
 volumes:
     mongo:
-        driver: local
-networks:
-    dbnet:
-        driver: bridge
+

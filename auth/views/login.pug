@@ -13,17 +13,17 @@ head
   br
   br
   h1(style="color:#E0E0E0; font-size: 35px; margin-right: 6px;") Log in
-  form.form.login(action='https://httpbin.org/post' method='POST')
+  form.form.login(action='/login' method='POST')
     .form__field
       label(for='login__username')
         i.fas.fa-user
         span.hidden Username
-      input#login__username.form__input(autocomplete='username' type='text' name='username' placeholder='Username' required='')
+      input#login__username.form__input(type='text' name='email' placeholder='E-mail')
     .form__field
       label(for='login__password')
         i.fas.fa-key
         span.hidden Password
-      input#login__password.form__input(type='password' name='password' placeholder='Password' required='')
+      input#login__password.form__input(type='password' name='password' placeholder='Password')
     .form__field
       input(type='submit' value='Sign In')
   p.text--center
