@@ -14,7 +14,10 @@ head
   br
   h1(style="color:#E0E0E0; font-size: 35px; margin-right: 6px;") Log in
     br
-    br(style='line-height: 30%;')
+    i(style="color: #D069af; font-size: 20px;").fas.fa-exclamation-triangle
+    b &nbsp;
+    b(style="font-weight: bold; color: #D069af; font-size: 15px;")=error
+    br
     form.form.login(action='login' method='POST' style='font-size: 18px;')
         .form__field
             label
@@ -28,13 +31,6 @@ head
             input#login__password.form__input(type='password' name='password' placeholder='Password')
         .form__field
         input(type='submit' value='Sign In')
-        br
-        br
-        p(style="font-weight: bold;")
-            i.fa-exclamation-triangle
-            error
-        br
-        br
         p(style='font-size: 15px;').text--center
             | Not registered yet? 
             a(href='/signup') Sign up now
