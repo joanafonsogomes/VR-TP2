@@ -11,7 +11,7 @@ services:
             - network1
     auth:
         image: joana/auth:latest
-        build: ./authentication
+        build: ./auth
         container_name: auth
         restart: always
         ports:

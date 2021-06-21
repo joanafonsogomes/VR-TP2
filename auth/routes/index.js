@@ -21,7 +21,7 @@ router.post('/login', function(req, res, next) {
   User.lookUp(req.body._id).then((dados) => {
     const user = dados;
     if (! user) {
-      res.render('loginError', { title: 'Login',error:'Utilizador não encontrado' });
+      res.render('loginError', { title: 'Login',error:'User not registed' });
     } else {
         if (req.body.password == user.password) {
             jwt.sign({
@@ -32,7 +32,7 @@ router.post('/login', function(req, res, next) {
                 expiresIn: "1d"
             }, function (err, token) {
                 if (err) {
-                  res.render('loginError', { title: 'Login',error:'Não foi possível fazer login.' });
+                  res.render('loginError', { title: 'Login',error:'Could not login' });
                 } else {
                   res.cookie('token', token)
                   if(req.cookies.url){
@@ -45,7 +45,7 @@ router.post('/login', function(req, res, next) {
                 }
             });
         } else {
-          res.render('loginError', { title: 'Login',error:'Password Errada' });
+          res.render('loginError', { title: 'Login',error:'Wrong password' });
         }
     }
 });
