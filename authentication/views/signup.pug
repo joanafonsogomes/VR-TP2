@@ -1,0 +1,28 @@
+extends layout
+
+block content 
+    .w3-container.w3-section.w3-card-4
+        header.w3-container.w3-teal
+            h2 Signup
+        form.w3-container(action='signup' method='POST')
+            label.w3-text-teal
+                b Email
+                    input.w3-input.w3-border.w3-light-grey(type='text' name='_id')
+            label.w3-text-teal
+                b Name
+                    input.w3-input.w3-border.w3-light-grey(type='text' name='name')
+            label.w3-text-teal
+                b Level
+                    select.w3-input.w3-border.w3-light-grey(type='text' name="level") 
+                        option(value='admin') Admin
+                        option(value='user') User
+            label.w3-text-teal
+                b Password
+                    input.w3-input.w3-border.w3-light-grey(type='password' name='password')
+            p.w3-text-red=error        
+            br
+            input.w3-btn.w3-teal-tealw3-btn.w3-border.w3-margin-bottom.w3-left.w3-teal(type='submit' value='SignUp')
+            input.w3-btn.w3-border.w3-margin-bottom.w3-right.w3-teal(type='reset' value='Limpar valores')
+    .w3-container.w3-teal
+        footer.w3-container
+            p Gerado pelo Authentication Server
