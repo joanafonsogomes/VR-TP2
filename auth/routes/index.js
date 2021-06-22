@@ -5,10 +5,10 @@ var User = require('../controllers/users');
 
 /* GET home page. */
 router.get('/login', function(req, res, next) {
-  if(req.cookies.auth == "1"){
-    res.cookie("auth", {expires: Date.now});
-    res.render('login', { title: 'Login' });
-  }
+  //if(req.cookies.auth == "1"){
+  //  res.cookie("auth", {expires: Date.now});
+  //  res.render('login', { title: 'Login' });
+  //}
   res.render('login', { title: 'Login' });
 });
 
@@ -37,7 +37,7 @@ router.post('/login', function(req, res, next) {
   User.lookUp(req.body._id).then((dados) => {
     const user = dados;
     if (! user) {
-      res.render('loginError', { title: 'Login',error:'User not registed' });
+      res.render('loginError', { title: 'Login',error:'User not registered' });
     } else {
         if (req.body.password == user.password) {
             jwt.sign({
@@ -50,20 +50,13 @@ router.post('/login', function(req, res, next) {
                 if (err) {
                   res.render('loginError', { title: 'Login',error:'Could not login' });
                 } else {
-                  res.cookie('auth', {expires: Date.now()});
                   res.cookie('token', token)
-                  if(req.cookies.url){
-                    res.redirect(req.cookies.url);
+                  if(user.level==1){
+                    res.redirect('http://0.0.0.0:4004/admin')
                   }
-                  else{
-                    res.cookie("auth", "1", {
-                      expires: new Date(Date.now() + "1d"),
-                      secure: false, // set to true if your using https
-                      httpOnly: true,
-                    });
-                    res.redirect('/auth')
+                  else if(user.level==0){
+                    res.redirect('http://0.0.0.0:4004/admin')
                   }
-                  
                 }
             });
         } else {
@@ -75,7 +68,7 @@ router.post('/login', function(req, res, next) {
 
 router.post("/signup", function (req, res) {
   var user = req.body;
-  if(user.level == 'level'){
+  if(user.level == 'admin'){
     user.level=1
   }
   else{
