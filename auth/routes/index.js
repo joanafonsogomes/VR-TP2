@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var jwt = require('jsonwebtoken')
 var User = require('../controllers/users');
+var fs = require('fs');
 
 /* GET home page. */
 router.get('/login', function(req, res, next) {
@@ -33,32 +34,44 @@ router.get('/auth', function(req, res) {
 
 });
 
+router.get('/', function(req, res, next) {
+  res.redirect('/login')
+});
+
+
 router.post('/login', function(req, res, next) {
+  console.log(req.body._id)
   User.lookUp(req.body._id).then((dados) => {
     const user = dados;
     if (! user) {
       res.render('loginError', { title: 'Login',error:'User not registered' });
     } else {
         if (req.body.password == user.password) {
-            jwt.sign({
-                _id: user._id,
+            var privateKey = fs.readFileSync('./private.key','utf8');
+            console.log("USER" + user)
+            var token = jwt.sign({
+                id: user._id,
                 name: user.name,
                 level: user.level
-            }, "VR-TP2", {
-                expiresIn: "1d"
-            }, function (err, token) {
-                if (err) {
-                  res.render('loginError', { title: 'Login',error:'Could not login' });
-                } else {
-                  res.cookie('token', token)
-                  if(user.level==1){
-                    res.redirect('http://0.0.0.0:4004/admin')
-                  }
-                  else if(user.level==0){
-                    res.redirect('http://0.0.0.0:4004/admin')
-                  }
-                }
-            });
+            }, privateKey, {
+                expiresIn: "1d",
+                algorithm: 'RS256'
+            }); 
+            console.log("TOKEN" + token)
+            // function (err, token) {
+            //     console.log("TOKEN" + token + " " + err)
+            //     if (err) {
+            //       res.render('loginError', { title: 'Login',error:'Could not login' });
+            //     } else {
+            //       res.cookie('token', token)
+            //       if(user.level==1){
+            //         res.redirect('http://0.0.0.0:4004/admin')
+            //       }
+            //       else if(user.level==0){
+            //         res.redirect('http://0.0.0.0:4004/user')
+            //       }
+            //     }
+            // });
         } else {
           res.render('loginError', { title: 'Login',error:'Wrong password' });
         }

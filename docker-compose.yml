@@ -10,7 +10,6 @@ services:
         networks:
             - network1
     auth:
-        image: joana/auth:latest
         build: ./auth
         container_name: auth
         restart: always
@@ -19,7 +18,6 @@ services:
         networks:
             - network1
     http:
-        image: joana/http:latest
         build: ./http
         container_name: http
         ports:
