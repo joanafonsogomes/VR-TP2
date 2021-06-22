@@ -5,7 +5,7 @@ var axios = require('axios')
 /* GET home page. */
 router.get(['/alunos','/'], (req, res) => {
   //res.render('alunos', {alunos: registos /* vem da base de dados */})
-  axios.get('http://localhost:3000/alunos')
+  axios.get('http://localhost:4004/alunos')
   .then(response=>{ 
     console.log(response)
     res.render('index', {lista: response.data})
@@ -14,7 +14,7 @@ router.get(['/alunos','/'], (req, res) => {
 
 router.get('/alunos/:id', (req, res) => {
   //res.render('alunos', {alunos: registos /* vem da base de dados */})
-  axios.get('http://localhost:3000/alunos'+req.params.id)
+  axios.get('http://localhost:4004/alunos'+req.params.id)
   .then(response=>{ 
     console.log(response)
     res.render('index', {lista: response.data})

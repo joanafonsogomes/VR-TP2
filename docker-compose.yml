@@ -18,10 +18,18 @@ services:
             - '4000:4000'
         networks:
             - network1
+    http:
+        image: joana/http:latest
+        build: ./http
+        container_name: http
+        networks:
+            - network1
+            - network2
 
 volumes:
     database:
 networks:
     network1:
+    network2:
 
         

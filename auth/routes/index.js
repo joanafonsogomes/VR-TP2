@@ -5,6 +5,10 @@ var User = require('../controllers/users');
 
 /* GET home page. */
 router.get('/login', function(req, res, next) {
+  if(req.cookies.auth == "1"){
+    res.cookie("auth", {expires: Date.now});
+    res.render('login', { title: 'Login' });
+  }
   res.render('login', { title: 'Login' });
 });
 
@@ -16,6 +20,18 @@ router.get("/homepage", function (req, res) {
   res.render('homepage', { title: 'homepage' });
 })
 
+router.get('/auth', function(req, res) {
+  link = req.query.link
+  token = req.cookies.token
+  if(token == null){
+    res.render('login', { title: 'Login' });
+  }
+  else{
+    console.log(token)
+    res.render('auth', { title: 'Authentication' });
+  }
+
+});
 
 router.post('/login', function(req, res, next) {
   User.lookUp(req.body._id).then((dados) => {
@@ -28,18 +44,24 @@ router.post('/login', function(req, res, next) {
                 _id: user._id,
                 name: user.name,
                 level: user.level
-            }, "VR2021", {
+            }, "VR-TP2", {
                 expiresIn: "1d"
             }, function (err, token) {
                 if (err) {
                   res.render('loginError', { title: 'Login',error:'Could not login' });
                 } else {
+                  res.cookie('auth', {expires: Date.now()});
                   res.cookie('token', token)
                   if(req.cookies.url){
                     res.redirect(req.cookies.url);
                   }
                   else{
-                    res.redirect('/homepage')
+                    res.cookie("auth", "1", {
+                      expires: new Date(Date.now() + "1d"),
+                      secure: false, // set to true if your using https
+                      httpOnly: true,
+                    });
+                    res.redirect('/auth')
                   }
                   
                 }
