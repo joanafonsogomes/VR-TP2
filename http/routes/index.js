@@ -47,10 +47,11 @@ function verifyIdUser(req, res, next) {
       if (decoded.level !== 0) res.redirect('/admin');
       var jsonLog = [];
       jsonLog = JSON.parse(fs.readFileSync('./httpvol/httpLog.json','utf8'));
-      console.log("POOP " + JSON.stringify(decoded));
-      var loggar = decoded.id;
-      jsonLog.push(loggar);
-      fs.writeFileSync('./httpvol/httpLog.json',JSON.stringify(jsonLog));
+      if(decoded.level!=1){
+        var loggar = decoded.id;
+        jsonLog.push(loggar);
+        fs.writeFileSync('./httpvol/httpLog.json',JSON.stringify(jsonLog));
+      }
       next();
   });
 }

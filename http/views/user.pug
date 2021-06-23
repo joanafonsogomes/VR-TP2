@@ -8,13 +8,20 @@ head
 .grid(style="text-align: center; width: 800px;")
   br
   br
+  br
   i(style="font-size: 100px; color: #E8E8E8;").fas.fa-user-lock
   br
   br
+
+.grid(style="text-align: center; width: 800px;")
+  form.form.login(action='logout' method='GET' style='font-size: 18px; width: 120px;')
+    input(type='submit' value='Log Out' style='width: 120px; margin-left: 85px;')
+
   br
   br
   br
   br
+
 .gallery
   img(src="images/users-1.svg" alt='Northern Lights' width='600' height='400')
   .desc(style='background-color:#D3D3D3; color:#383838; font-weight:bold;') Diogo Salsa
@@ -63,8 +70,3 @@ head
 .gallery
   img(src="images/users-16.svg" width='600' height='400')
   .desc(style='background-color:#D3D3D3; color:#383838; font-weight:bold;') Isabel Sá
-
-.grid(style="text-align: center; display: flex;")
-  form.form.login(action='logout' method='GET' style='font-size: 18px;')
-    .form__field
-    input(type='submit' value='Log Out' style='margin-top:300px; width: 120px; margin-left: 250px;')
