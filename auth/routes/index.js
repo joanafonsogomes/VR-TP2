@@ -6,13 +6,6 @@ var fs = require('fs');
 
 var executed = false;
 
-var insereAdmin = (function() {
-  var executed = false;
-  return function() {
-      
-  };
-})();
-
 /* GET home page. */
 router.get('/login', function(req, res, next) {
   res.render('login', { title: 'Login' });
