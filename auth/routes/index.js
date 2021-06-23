@@ -49,29 +49,27 @@ router.post('/login', function(req, res, next) {
         if (req.body.password == user.password) {
             var privateKey = fs.readFileSync('./private.key','utf8');
             console.log("USER" + user)
-            var token = jwt.sign({
+            jwt.sign({
                 id: user._id,
                 name: user.name,
                 level: user.level
             }, privateKey, {
-                expiresIn: "1d",
+                expiresIn: "30s",
                 algorithm: 'RS256'
-            }); 
-            console.log("TOKEN" + token)
-            // function (err, token) {
-            //     console.log("TOKEN" + token + " " + err)
-            //     if (err) {
-            //       res.render('loginError', { title: 'Login',error:'Could not login' });
-            //     } else {
-            //       res.cookie('token', token)
-            //       if(user.level==1){
-            //         res.redirect('http://0.0.0.0:4004/admin')
-            //       }
-            //       else if(user.level==0){
-            //         res.redirect('http://0.0.0.0:4004/user')
-            //       }
-            //     }
-            // });
+            }, function (err, token) {
+                console.log("TOKEN" + token + " " + err)
+                if (err) {
+                  res.render('loginError', { title: 'Login',error:'Could not login' });
+                } else {
+                  res.cookie('token', token)
+                  if(user.level==1){
+                    res.redirect('http://0.0.0.0:4004/admin')
+                  }
+                  else if(user.level==0){
+                    res.redirect('http://0.0.0.0:4004/user')
+                  }
+                }
+            });
         } else {
           res.render('loginError', { title: 'Login',error:'Wrong password' });
         }

@@ -17,13 +17,13 @@ services:
             - '4000:4000'
         networks:
             - network1
+            - network2
     http:
         build: ./http
         container_name: http
         ports:
             - '4004:4004'
         networks:
-            - network1
             - network2
 
 volumes:
