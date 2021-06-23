@@ -2,7 +2,7 @@ doctype html
 head
     link(rel='stylesheet' href='/stylesheets/style.css')
     link(rel='stylesheet' href='/stylesheets/footer.css')
-    script(src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous')
+    script(src='https://kit.fontawesome.com/a076d05399.js')
 
 .grid(style="text-align: center")
   br
@@ -25,18 +25,11 @@ head
             input.form__input(type='text' name='name' placeholder='Name')
         .form__field
             label
-                i.fas.fa-user
-                span.hidden Level
-                select(type='text' name="level") 
-                    option(value='admin') Admin
-                    option(value='user') User
-        .form__field
-            label
                 i.fas.fa-key
                 span.hidden Password
             input#login__password.form__input(type='password' name='password' placeholder='Password')
         .form__field
-        input(type='submit' value='Sign In')
+        input(type='submit' value='Sign Up')
         p(style='font-size: 15px;').text--center
             | Already registed? 
             a(href='/login') Log in

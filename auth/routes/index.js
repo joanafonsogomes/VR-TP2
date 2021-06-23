@@ -85,12 +85,7 @@ router.post('/login', function(req, res, next) {
 router.post("/signup", function (req, res) {
   var user = req.body;
   console.log(user)
-  if(user.level == 'admin'){
-    user.level=1
-  }
-  else{
-    user.level=0
-  }
+  user.level=0;
   User.insereUser(user).then(() => {
       res.redirect('/login')
   }).catch((err) => {
