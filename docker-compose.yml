@@ -10,7 +10,7 @@ services:
         networks:
             - network1
     auth:
-        build: ./auth
+        image: joanafonsogomes/auth
         container_name: auth
         restart: always
         ports:
@@ -19,7 +19,7 @@ services:
             - network1
             - network2
     http:
-        build: ./http
+        image: joanafonsogomes/http
         container_name: http
         volumes:
             - httpvolume:/httpvol

@@ -6,7 +6,9 @@ var fs = require('fs');
 
 var executed = false;
 
-/* GET home page. */
+/**
+ * Get homepage (login page)
+ */
 router.get('/login', function(req, res, next) {
   res.render('login', { title: 'Login' });
   if (!executed) {
