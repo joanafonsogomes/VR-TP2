@@ -40,6 +40,7 @@ function verifyIdUser(req, res, next) {
   var secretKey = fs.readFileSync('./public.key','utf8');
   jwt.verify(token, secretKey, { algorithm: ["RS256"] }, function (err, decoded) {
       if (err) res.redirect('http://0.0.0.0:4000');
+      console.log("DECODED " + JSON.stringify(decoded))
       if (decoded === undefined) res.redirect('http://0.0.0.0:4000');
       if (decoded.level !== 0) res.redirect('/admin');
       next();

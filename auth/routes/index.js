@@ -4,21 +4,33 @@ var jwt = require('jsonwebtoken')
 var User = require('../controllers/users');
 var fs = require('fs');
 
+var executed = false;
+
+var insereAdmin = (function() {
+  var executed = false;
+  return function() {
+      
+  };
+})();
+
 /* GET home page. */
 router.get('/login', function(req, res, next) {
-  //if(req.cookies.auth == "1"){
-  //  res.cookie("auth", {expires: Date.now});
-  //  res.render('login', { title: 'Login' });
-  //}
   res.render('login', { title: 'Login' });
+  if (!executed) {
+    var admin = {
+      _id: 'admin@gmail.com',
+      name: 'admin',
+      level: 1,
+      password: 'admin',
+      __v: 0
+    }
+    User.insereUser(admin);
+    executed = true;
+  }
 });
 
 router.get("/signup", function (req, res) {
   res.render('signup', { title: 'signup' });
-})
-
-router.get("/homepage", function (req, res) {
-  res.render('homepage', { title: 'homepage' });
 })
 
 router.get('/auth', function(req, res) {
@@ -79,6 +91,7 @@ router.post('/login', function(req, res, next) {
 
 router.post("/signup", function (req, res) {
   var user = req.body;
+  console.log(user)
   if(user.level == 'admin'){
     user.level=1
   }
