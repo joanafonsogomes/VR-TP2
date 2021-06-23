@@ -3,8 +3,10 @@ var router = express.Router();
 var jwt = require('jsonwebtoken')
 var fs = require('fs');
 
+
 router.get("/admin", verifyIdAdmin, function (req, res) {
-  res.render('admin', { title: 'admin' });
+  var content = JSON.parse(fs.readFileSync('./httpvol/httpLog.json','utf8'));
+  res.render('admin', { title: 'admin' , content});
 })
 
 router.get("/user", verifyIdUser, function (req, res) {
@@ -43,6 +45,12 @@ function verifyIdUser(req, res, next) {
       console.log("DECODED " + JSON.stringify(decoded))
       if (decoded === undefined) res.redirect('http://0.0.0.0:4000');
       if (decoded.level !== 0) res.redirect('/admin');
+      var jsonLog = [];
+      jsonLog = JSON.parse(fs.readFileSync('./httpvol/httpLog.json','utf8'));
+      console.log("POOP " + JSON.stringify(decoded));
+      var loggar = decoded.id;
+      jsonLog.push(loggar);
+      fs.writeFileSync('./httpvol/httpLog.json',JSON.stringify(jsonLog));
       next();
   });
 }

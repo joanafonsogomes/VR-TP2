@@ -21,6 +21,8 @@ services:
     http:
         build: ./http
         container_name: http
+        volumes:
+            - httpvolume:/httpvol
         ports:
             - '4004:4004'
         networks:
@@ -28,6 +30,7 @@ services:
 
 volumes:
     database:
+    httpvolume:
 networks:
     network1:
     network2:

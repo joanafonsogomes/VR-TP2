@@ -26,19 +26,6 @@ router.get("/signup", function (req, res) {
   res.render('signup', { title: 'signup' });
 })
 
-router.get('/auth', function(req, res) {
-  link = req.query.link
-  token = req.cookies.token
-  if(token == null){
-    res.render('login', { title: 'Login' });
-  }
-  else{
-    console.log(token)
-    res.render('auth', { title: 'Authentication' });
-  }
-
-});
-
 router.get('/', function(req, res, next) {
   res.redirect('/login')
 });
